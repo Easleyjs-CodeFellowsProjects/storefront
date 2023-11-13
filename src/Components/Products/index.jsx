@@ -48,12 +48,12 @@ export default function Products() {
             overflow="auto"
         >
             <Grid item container spacing={2}>            
-                <Grid xs={4}></Grid>
+                <Grid item xs={4}></Grid>
                 <Grid item xs={4}>
                     <Typography sx={{ textAlign: 'center' }} variant="h2">CATEGORY</Typography>
                     <Typography sx={{ textAlign: 'center' }}>Category description goes here</Typography>
                 </Grid>
-                <Grid xs={4}></Grid>
+                <Grid item xs={4}></Grid>
                 <Grid item xs={4}><Product /></Grid>
                 <Grid item xs={4}><Product /></Grid>
             </Grid>
