@@ -1,8 +1,43 @@
-// here begins our redux configuration
-import { createStore, combineReducers } from 'redux';
+'use strict';
 
-import categoryReducer from './categories.js';
+const initialState = {
+  activeCategory: 'ELECTRONICS',
+  categories: [ 
+    {
+        name: 'ELECTRONICS', 
+        description: 'Things that run on electricity.'
+    },
+    {
+        name: 'SPORTS',
+        description: 'Items for the games you play.'
+    },
+    {
+        name: 'MENSWEAR',
+        description: 'Clothes men wear.'
+    }],
+}
 
-let reducer = combineReducers({ categories: categoryReducer });
+function reducer(state = initialState, action) {
+  const { type, payload } =  action;
+  // console.log('HERE IS THE STATE', state);
+  // console.log('HERE IS THE ACTION', action);
+  switch(type) {
+    case 'SET_ACTIVE_CATEGORY':
+      return {
+        ...state,
+        activeCategory: payload,
+      }
+    default:
+      return state;
+  }
+}
 
-export default createStore(reducer);
+// actions / action creator => a function that returns an action object
+export const setCategory = (category) => {
+  return {
+    type: 'SET_ACTIVE_CATEGORY',
+    payload: category
+  }
+}
+
+export default reducer;

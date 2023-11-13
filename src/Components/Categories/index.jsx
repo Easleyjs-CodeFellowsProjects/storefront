@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 import { Link } from "@mui/material";
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategory } from '../../store/categories/categories';
+import { setCategory } from '../../store/categories';
 
 const gridStyles = {
     backgroundColor: "white",
@@ -18,7 +18,7 @@ const gridStyles = {
 export default function Categories() {
     const state = useSelector(state => state.categories); //.categories a hook, that returns a getter from  the redux store, takes a callback function that will receive all of redux state, and the return value will be the value of the getter.
     const dispatch = useDispatch(); // returns a setter that takes an action {type, payload}.
-    console.log('MY REDUX STORE VALUES', state);
+    console.log('MY REDUX CATEGORY VALUES', state);
   
     const handleCategory = (category) => {
       let action = setCategory(category);

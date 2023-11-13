@@ -1,10 +1,13 @@
 import * as React from 'react';
 import { styled } from "@mui/material/styles";
-import Box from '@mui/material/Box';
+
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import { Link, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import Product from '../Product';
+
+import { useSelector, useDispatch } from 'react-redux';
+//import { setProducts } from '../../store/index';
 
 const gridStyles = {
     backgroundColor: "white",
@@ -37,8 +40,13 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
   }));
 
-//<Contents sx={{flexGrow: 1}}>Item 1</Contents>
+
 export default function Products() {
+    const categoryState = useSelector(state => state.categories);
+    const state = useSelector(state => state.products); //a hook, that returns a getter from  the redux store, takes a callback function that will receive all of redux state, and the return value will be the value of the getter.
+    //const dispatch = useDispatch(); // returns a setter that takes an action {type, payload}.
+    //console.log('MY REDUX PRODUCT VALUES', state);
+
     return (
         <Grid
             container
@@ -47,15 +55,17 @@ export default function Products() {
             flex={5}
             overflow="auto"
         >
-            <Grid item container spacing={2}>            
+            <Grid item container spacing={4}>            
                 <Grid item xs={4}></Grid>
                 <Grid item xs={4}>
-                    <Typography sx={{ textAlign: 'center' }} variant="h2">CATEGORY</Typography>
-                    <Typography sx={{ textAlign: 'center' }}>Category description goes here</Typography>
+                    <Typography sx={{ textAlign: 'center' }} variant="h2">{ categoryState.activeCategory }</Typography>
+
                 </Grid>
                 <Grid item xs={4}></Grid>
-                <Grid item xs={4}><Product /></Grid>
-                <Grid item xs={4}><Product /></Grid>
+                { state.activeProducts.map(( product, key ) => (
+                    <Product product={ product } key={ key } />
+                ))}
+
             </Grid>
         </Grid>
     )

@@ -8,7 +8,8 @@ import Header from './Components/Header'
 import Categories from './Components/Categories'
 import Products from './Components/Products'
 import Footer from './Components/Footer'
-import store from './store/categories';
+import store from './store';
+
 
 function App() {
   return (

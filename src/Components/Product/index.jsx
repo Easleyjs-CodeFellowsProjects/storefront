@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { styled } from "@mui/material/styles";
-import Box from '@mui/material/Box';
+
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { Link, Typography } from "@mui/material";
@@ -19,23 +19,32 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
   }));
 
-export default function Product() {
+/*
+
+*/
+
+export default function Product( props ) {
+    const { name, description } = props.product;
+    //console.log(name);
     return (
-        <Grid container 
-        alignContent="center" 
-        sx={{ 
-          border: '1px solid black',
-          borderRadius: '5px',
-          height: '20rem'
+        <Grid 
+            item 
+            xs={4} 
+            container 
+            alignContent="center" 
+            sx={{ 
+            border: '1px solid black',
+            borderRadius: '5px',
+            height: '20rem'
         }}>
             <Grid item xs={1}></Grid>
             <Grid item xs={10}>
-            <Typography variant="h6">Item Name</Typography>
+            <Typography variant="h6">{ name }</Typography>
             </Grid>
             <Grid item xs={1}></Grid>
             <Grid item xs={1}></Grid>
             <Grid item xs={10}>
-            <Typography >Item Description</Typography>
+            <Typography >{ description }</Typography>
             </Grid>
             <Grid container marginTop="20px">
                 <Grid item xs={1}></Grid>
