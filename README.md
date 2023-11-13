@@ -24,7 +24,7 @@ As a user, I want a clean, easy to use user interface so that I can shop the onl
 - A <Categories /> component:
   -- Shows a list of all categories.
   -- Dispatches an action when one is clicked to “activate” it.
-A <Products /> component:
+- A <Products /> component:
   -- Displays a list of products associated with the selected category.
 
 ## Notes on constructing the Redux Store:
