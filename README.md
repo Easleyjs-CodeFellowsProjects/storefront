@@ -13,7 +13,7 @@ As a user, I want a clean, easy to use user interface so that I can shop the onl
 ### Features
 -- Create a visually appealing site using Material UI.
 - Use a Redux Store to manage the state of categories and items in the store.
-- Display a list of categories from state.
+-- Display a list of categories from state.
 
 - When the user selects (clicks on) a category:
 -- Identify that category as selected (change of class/display).
