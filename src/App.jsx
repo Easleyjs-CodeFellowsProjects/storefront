@@ -2,9 +2,10 @@ import './App.css'
 import { CssBaseline } from '@mui/material'
 import { Box } from '@mui/material'
 import { Provider } from 'react-redux';
-import { useState } from 'react' //delete later
+
 
 import Header from './Components/Header'
+//import SimpleCart from './Components/SimpleCart';
 import Categories from './Components/Categories'
 import Products from './Components/Products'
 import Footer from './Components/Footer'

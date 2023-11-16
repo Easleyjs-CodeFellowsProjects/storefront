@@ -1,72 +1,39 @@
 import * as React from 'react';
-import { styled } from "@mui/material/styles";
+import Typography from '@mui/material/Typography';
+import Box from '@mui/system/Box';
+import Button from '@mui/material/Button';
 
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
-import { Typography } from "@mui/material";
-import Product from '../Product';
+export default function SimpleCart() {
 
-import { useSelector, useDispatch } from 'react-redux';
-//import { setProducts } from '../../store/index';
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-const gridStyles = {
-    backgroundColor: "white",
-    marginLeft: "auto",
-    marginRight: "auto",
-    maxWidth: 1200,
-    paddingRight: 1,
-    paddingBottom: 1
-};
+  // need to set open based on whether there are items in the cart. count > 0
+  const shouldOpen = true;
 
-const Contents = styled(Paper)(({ theme }) => ({
-    ...theme.typography.h6,
-    padding: theme.spacing(1),
-    textAlign: "center"
-  }));
-
-const tallGrid = {
-    height: '90%'
-}
-
-const itemStyle = {
-    height: 225
-}
-
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }));
-
-
-export default function Products() {
-    const categoryState = useSelector(state => state.categories);
-    const state = useSelector(state => state.products); //a hook, that returns a getter from  the redux store, takes a callback function that will receive all of redux state, and the return value will be the value of the getter.
-    //const dispatch = useDispatch(); // returns a setter that takes an action {type, payload}.
-    //console.log('MY REDUX PRODUCT VALUES', state);
-
-    return (
-        <Grid
-            container
-            spacing={1}
-            sx={{...gridStyles, ...tallGrid}}
-            flex={5}
-            overflow="auto"
-        >
-            <Grid item container spacing={4}>            
-                <Grid item xs={4}></Grid>
-                <Grid item xs={4}>
-                    <Typography sx={{ textAlign: 'center' }} variant="h2">{ categoryState.activeCategory }</Typography>
-
-                </Grid>
-                <Grid item xs={4}></Grid>
-                { state.activeProducts.map(( product, key ) => (
-                    <Product product={ product } key={ key } />
-                ))}
-
-            </Grid>
-        </Grid>
-    )
+  return (
+    <>
+    <Button id="cartButton" color="inherit">CART (0)</Button>
+    <Box
+        id="shoppingCart"
+        sx={{ 
+                position: 'fixed', 
+                left: '85%', 
+                marginTop: '12rem', 
+                marginRight: '20px', 
+                cursor: 'default',
+                display: shouldOpen ? 'inline' : 'none',
+                color: 'black'
+            }}
+    >
+        <Box sx={{ minWidth: '200px', minHeight: '100px', paddingBottom: '8px' }}>
+            <Typography sx={{ p: 2, textAlign: 'center' }}>Your Cart:</Typography>
+            <Typography sx={{ textAlign: 'center' }}>Test Item</Typography>
+            <Typography sx={{ textAlign: 'center' }}>Test Item</Typography>
+            <Typography sx={{ textAlign: 'center' }}>Test Item</Typography>
+        </Box>
+    </Box>
+    </>
+  );
 }
