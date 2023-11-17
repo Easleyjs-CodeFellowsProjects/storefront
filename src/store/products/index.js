@@ -72,10 +72,23 @@ function reducer(state = initialState, action) {
   // console.log('HERE IS THE ACTION', action);
   switch(type) {
     case 'SET_ACTIVE_CATEGORY':
-      return {
-        ...state,
-        activeProducts: state.products[payload],
-      }
+        return {
+            ...state,
+            activeProducts: state.products[payload],
+    }
+    case 'ADD_TO_CART':
+        let updateProducts = { ...state.products };
+        Object.keys(updateProducts).forEach( category => {
+            updateProducts[ category ].forEach( product => {
+                if ( product.name === payload ) {
+                    product.inventory = product.inventory -1;
+                }
+            })
+        });
+        return {
+            ...state,
+            products: updateProducts
+        }
     default:
       return state;
   }

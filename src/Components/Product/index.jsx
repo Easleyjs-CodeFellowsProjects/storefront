@@ -19,12 +19,9 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
   }));
 
-/*
-
-*/
-
 export default function Product( props ) {
     const { name, description } = props.product;
+    const { addToCartHandler } = props;
     //console.log(name);
     return (
         <Grid 
@@ -54,7 +51,7 @@ export default function Product( props ) {
                         variant="body2"
                         underline="none"
                         onClick={() => {
-                            console.info("I'm a button");
+                            addToCartHandler( name );
                         }}>ADD TO CART</Link>
                 </Grid>
                 <Grid item xs={5}>

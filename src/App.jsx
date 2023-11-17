@@ -3,9 +3,7 @@ import { CssBaseline } from '@mui/material'
 import { Box } from '@mui/material'
 import { Provider } from 'react-redux';
 
-
 import Header from './Components/Header'
-//import SimpleCart from './Components/SimpleCart';
 import Categories from './Components/Categories'
 import Products from './Components/Products'
 import Footer from './Components/Footer'

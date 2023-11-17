@@ -3,18 +3,17 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/system/Box';
 import Button from '@mui/material/Button';
 
+import { useSelector } from 'react-redux';
+
 export default function SimpleCart() {
+    const state = useSelector(state => state.cart); //.categories a hook, that returns a getter from  the redux store, takes a callback function that will receive all of redux state, and the return value will be the value of the getter.
+    const { itemCount, contents } = state;
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  // need to set open based on whether there are items in the cart. count > 0
-  const shouldOpen = true;
+    const shouldOpen = itemCount > 0 ? true : false;
 
   return (
     <>
-    <Button id="cartButton" color="inherit">CART (0)</Button>
+    <Button id="cartButton" color="inherit">CART ({ itemCount })</Button>
     <Box
         id="shoppingCart"
         sx={{ 
@@ -29,9 +28,9 @@ export default function SimpleCart() {
     >
         <Box sx={{ minWidth: '200px', minHeight: '100px', paddingBottom: '8px' }}>
             <Typography sx={{ p: 2, textAlign: 'center' }}>Your Cart:</Typography>
-            <Typography sx={{ textAlign: 'center' }}>Test Item</Typography>
-            <Typography sx={{ textAlign: 'center' }}>Test Item</Typography>
-            <Typography sx={{ textAlign: 'center' }}>Test Item</Typography>
+            { contents.map( (item, idx) => {
+                return <Typography key={idx} sx={{ textAlign: 'center' }}>{ item.name }</Typography>
+            })}
         </Box>
     </Box>
     </>

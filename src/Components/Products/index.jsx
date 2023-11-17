@@ -8,6 +8,7 @@ import Product from '../Product';
 
 import { useSelector, useDispatch } from 'react-redux';
 //import { setProducts } from '../../store/index';
+import { addToCart } from '../../store/cart';
 
 const gridStyles = {
     backgroundColor: "white",
@@ -44,8 +45,12 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function Products() {
     const categoryState = useSelector(state => state.categories);
     const state = useSelector(state => state.products); //a hook, that returns a getter from  the redux store, takes a callback function that will receive all of redux state, and the return value will be the value of the getter.
-    //const dispatch = useDispatch(); // returns a setter that takes an action {type, payload}.
-    //console.log('MY REDUX PRODUCT VALUES', state);
+    const dispatch = useDispatch(); // returns a setter that takes an action {type, payload}.
+
+    const handleAddToCart = ( item ) => {
+        let action = addToCart( item );
+        dispatch( action );
+    }
 
     return (
         <Grid
@@ -59,11 +64,14 @@ export default function Products() {
                 <Grid item xs={4}></Grid>
                 <Grid item xs={4}>
                     <Typography sx={{ textAlign: 'center' }} variant="h2">{ categoryState.activeCategory }</Typography>
-
                 </Grid>
                 <Grid item xs={4}></Grid>
                 { state.activeProducts.map(( product, key ) => (
-                    <Product product={ product } key={ key } />
+                    <Product 
+                            product={ product } 
+                            key={ key } 
+                            addToCartHandler={ handleAddToCart }
+                    />
                 ))}
 
             </Grid>
