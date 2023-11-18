@@ -1,5 +1,8 @@
 'use strict';
+import { createSlice } from "@reduxjs/toolkit";
+import axios from 'axios';
 
+/*
 const initialState = {
   activeProducts: [],
   products: { 
@@ -65,28 +68,84 @@ const initialState = {
         ],
     }
 };
-
+*/
+/*
 function reducer(state = initialState, action) {
   const { type, payload } =  action;
   // console.log('HERE IS THE STATE', state);
   // console.log('HERE IS THE ACTION', action);
   switch(type) {
     case 'SET_ACTIVE_CATEGORY':
-      return {
-        ...state,
-        activeProducts: state.products[payload],
-      }
+        return {
+            ...state,
+            activeProducts: state.products[payload],
+    }
+    case 'ADD_TO_CART':
+        let updateProducts = { ...state.products };
+        Object.keys(updateProducts).forEach( category => {
+            updateProducts[ category ].forEach( product => {
+                if ( product.name === payload ) {
+                    product.inventory = product.inventory -1;
+                }
+            })
+        });
+        return {
+            ...state,
+            products: updateProducts
+        }
     default:
       return state;
   }
 }
+*/
 
 // actions / action creator => a function that returns an action object
+/*
 export const setCategory = (category) => {
   return {
     type: 'SET_ACTIVE_CATEGORY',
     payload: category
   }
 }
+*/
 
-export default reducer;
+const productsSlice = createSlice({
+    name: 'products',
+    initialState: {
+        list: [],
+    },
+    reducers: {
+        setList: ( state, action ) => {
+            state.list = action.payload;
+        },
+        addProduct: ( state, action ) => {
+            state.list.push( action.payload );
+        },
+        updateProduct: ( state, action ) => {
+            state.list = state.list.map( product => {
+                if ( product._id === action.payload._id ) {
+                    return action.payload;
+                } else {
+                    return product;
+                }
+            });
+        },
+        removeProduct: ( state, action ) => {
+            state.list = state.list.filter( product => product._id !== action.payload._id )
+        }
+    }
+});
+
+export const { setList, addProduct, updateProduct, removeProduct } = productsSlice.actions;
+
+export const fetchProducts = () => async ( dispatch ) => {
+    const response = await axios.get('https://api-js401.herokuapp.com/api/v1/products');
+    dispatch( setList( response.data.results ));
+}
+
+export const createProduct = ( productValues ) => async ( dispatch ) => {
+    const response = await axios.post( 'https://api-js401.herokuapp.com/api/v1/products', productValues );
+    dispatch( addProduct( response.data.results ));
+}
+
+export default productsSlice.reducer;

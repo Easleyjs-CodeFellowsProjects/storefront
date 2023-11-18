@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import { styled } from "@mui/material/styles";
 
 import Paper from "@mui/material/Paper";
@@ -7,7 +8,9 @@ import { Typography } from "@mui/material";
 import Product from '../Product';
 
 import { useSelector, useDispatch } from 'react-redux';
+import { fetchProducts } from '../../store/products';
 //import { setProducts } from '../../store/index';
+import { addToCart } from '../../store/cart';
 
 const gridStyles = {
     backgroundColor: "white",
@@ -44,8 +47,24 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function Products() {
     const categoryState = useSelector(state => state.categories);
     const state = useSelector(state => state.products); //a hook, that returns a getter from  the redux store, takes a callback function that will receive all of redux state, and the return value will be the value of the getter.
-    //const dispatch = useDispatch(); // returns a setter that takes an action {type, payload}.
-    //console.log('MY REDUX PRODUCT VALUES', state);
+    const dispatch = useDispatch(); // returns a setter that takes an action {type, payload}.
+
+    const handleAddToCart = ( item ) => {
+        let action = addToCart( item );
+        dispatch( action );
+    }
+
+    useEffect( () => {
+        dispatch( fetchProducts() );
+    }, []);
+
+    const displayActiveProducts = () => {
+        if ( !categoryState.activeCategory ) {
+            return [{ name: 'Select a category.' }]
+        } else {
+            return state.list.filter( product => product.category === categoryState.activeCategory.name );
+        }
+    }
 
     return (
         <Grid
@@ -58,12 +77,15 @@ export default function Products() {
             <Grid item container spacing={4}>            
                 <Grid item xs={4}></Grid>
                 <Grid item xs={4}>
-                    <Typography sx={{ textAlign: 'center' }} variant="h2">{ categoryState.activeCategory }</Typography>
-
+                    <Typography sx={{ textAlign: 'center' }} variant="h2">{ categoryState.activeCategory??name ? categoryState.activeCategory.name : null }</Typography>
                 </Grid>
                 <Grid item xs={4}></Grid>
-                { state.activeProducts.map(( product, key ) => (
-                    <Product product={ product } key={ key } />
+                { displayActiveProducts().map(( product, key ) => (
+                    <Product 
+                            product={ product } 
+                            key={ key } 
+                            addToCartHandler={ handleAddToCart }
+                    />
                 ))}
 
             </Grid>
