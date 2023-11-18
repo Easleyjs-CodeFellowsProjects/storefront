@@ -1,31 +1,21 @@
 'use strict';
+import { createSlice } from "@reduxjs/toolkit";
+//import axios from 'axios';
 
-const initialState = {
-  itemCount: 0,
-  contents: [],
-}
-
-function reducer(state = initialState, action) {
-  const { type, payload } =  action;
-
-  switch(type) {
-    case 'ADD_TO_CART':
-      return {
-        ...state,
-        itemCount: state.itemCount + 1,
-        contents: [ ...state.contents, { name: payload }],
-      }
-    default:
-      return state;
+const cartSlice = createSlice({
+  name: 'cart',
+  initialState: {
+    itemCount: 0,
+    contents: [],
+  },
+  reducers: {
+    addToCart: ( state, action ) => {
+      state.contents.push( action.payload );
+      state.itemCount = state.itemCount + 1;
+    }
   }
-}
+});
 
-// actions / action creator => a function that returns an action object
-export const addToCart = (item) => {
-  return {
-    type: 'ADD_TO_CART',
-    payload: item
-  }
-}
+export const { addToCart } = cartSlice.actions;
 
-export default reducer;
+export default cartSlice.reducer;
