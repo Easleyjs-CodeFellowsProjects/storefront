@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import { styled } from "@mui/material/styles";
 
 import Paper from "@mui/material/Paper";
@@ -7,6 +8,7 @@ import { Typography } from "@mui/material";
 import Product from '../Product';
 
 import { useSelector, useDispatch } from 'react-redux';
+import { fetchProducts } from '../../store/products';
 //import { setProducts } from '../../store/index';
 import { addToCart } from '../../store/cart';
 
@@ -52,6 +54,18 @@ export default function Products() {
         dispatch( action );
     }
 
+    useEffect( () => {
+        dispatch( fetchProducts() );
+    }, []);
+
+    const displayActiveProducts = () => {
+        if ( !categoryState.activeCategory ) {
+            return [{ name: 'Select a category.' }]
+        } else {
+            return state.list.filter( product => product.category === categoryState.activeCategory );
+        }
+    }
+
     return (
         <Grid
             container
@@ -66,7 +80,7 @@ export default function Products() {
                     <Typography sx={{ textAlign: 'center' }} variant="h2">{ categoryState.activeCategory }</Typography>
                 </Grid>
                 <Grid item xs={4}></Grid>
-                { state.activeProducts.map(( product, key ) => (
+                { displayActiveProducts().map(( product, key ) => (
                     <Product 
                             product={ product } 
                             key={ key } 
