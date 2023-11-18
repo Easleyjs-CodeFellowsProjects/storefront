@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import SimpleCart from '../SimpleCart';
 
 //sx={{ flexGrow: 12 }}
-//<SimpleCart />
+
 export default function Header() {
     return (
       <Box flex={1} overflow="auto" >
@@ -17,7 +17,7 @@ export default function Header() {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               OUR STORE
             </Typography>
-            
+            <SimpleCart />            
           </Toolbar>
         </AppBar>
       </Box>

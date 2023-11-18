@@ -29,7 +29,7 @@ export default function SimpleCart() {
         <Box sx={{ minWidth: '200px', minHeight: '100px', paddingBottom: '8px' }}>
             <Typography sx={{ p: 2, textAlign: 'center' }}>Your Cart:</Typography>
             { contents.map( (item, idx) => {
-                return <Typography key={idx} sx={{ textAlign: 'center' }}>{ item.name }</Typography>
+                return <Typography key={idx} sx={{ textAlign: 'center' }}>{ item }</Typography>
             })}
         </Box>
     </Box>
