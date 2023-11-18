@@ -62,7 +62,7 @@ export default function Products() {
         if ( !categoryState.activeCategory ) {
             return [{ name: 'Select a category.' }]
         } else {
-            return state.list.filter( product => product.category === categoryState.activeCategory );
+            return state.list.filter( product => product.category === categoryState.activeCategory.name );
         }
     }
 
@@ -77,7 +77,7 @@ export default function Products() {
             <Grid item container spacing={4}>            
                 <Grid item xs={4}></Grid>
                 <Grid item xs={4}>
-                    <Typography sx={{ textAlign: 'center' }} variant="h2">{ categoryState.activeCategory }</Typography>
+                    <Typography sx={{ textAlign: 'center' }} variant="h2">{ categoryState.activeCategory??name ? categoryState.activeCategory.name : null }</Typography>
                 </Grid>
                 <Grid item xs={4}></Grid>
                 { displayActiveProducts().map(( product, key ) => (

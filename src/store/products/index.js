@@ -139,7 +139,7 @@ const productsSlice = createSlice({
 export const { setList, addProduct, updateProduct, removeProduct } = productsSlice.actions;
 
 export const fetchProducts = () => async ( dispatch ) => {
-    const response = await axios.get();
+    const response = await axios.get('https://api-js401.herokuapp.com/api/v1/products');
     dispatch( setList( response.data.results ));
 }
 
