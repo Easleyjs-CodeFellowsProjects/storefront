@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { styled } from "@mui/material/styles";
+import { useEffect } from 'react';
 import Grid from "@mui/material/Grid";
 import { Link } from "@mui/material";
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategory } from '../../store/categories';
+import { fetchCategories, selectCategory } from '../../store/categories';
+
 
 const gridStyles = {
     backgroundColor: "white",
@@ -20,10 +21,9 @@ export default function Categories() {
     const dispatch = useDispatch(); // returns a setter that takes an action {type, payload}.
     //console.log('MY REDUX CATEGORY VALUES', state);
   
-    const handleCategory = (category) => {
-      let action = setCategory(category);
-      dispatch(action);
-    }
+    useEffect(() => {
+        dispatch( fetchCategories() );
+    }, []);
 
     return (
         <Grid
@@ -37,7 +37,7 @@ export default function Categories() {
                     component="button"
                     variant="body2"
                     underline="none"
-                    onClick={() => { handleCategory(category.name) }}
+                    onClick={() => { dispatch( selectCategory(category) )}}
                     sx={{ marginRight: '1em' }}
                     key={key}
                 >{ category.name }
