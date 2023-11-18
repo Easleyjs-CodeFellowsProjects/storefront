@@ -1,14 +1,15 @@
 // here begins our redux configuration
-import { createStore, combineReducers } from 'redux';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
 import productsReducer from './products';
 import categoryReducer from './categories';
 import cartReducer from './cart';
 
-const reducer = combineReducers({ 
+
+const rootReducer = combineReducers({
     products: productsReducer,
     categories: categoryReducer,
     cart: cartReducer,
 });
 
-export default createStore(reducer);
+export default configureStore( rootReducer );
